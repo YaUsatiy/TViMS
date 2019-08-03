@@ -16,7 +16,9 @@ public class MainWindow extends JFrame {
         Dimension fullSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(fullSize);
         //setSize(getDoubleDimension());
-        //setResizable(false);
+        setResizable(false);
+        ImageIcon icon = new ImageIcon("res/img/icon.png");
+        setIconImage(icon.getImage());
         setTitle("Визуализация законов распределения");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -30,6 +32,6 @@ public class MainWindow extends JFrame {
 
     private void initChart(){
         ChartPanel chartPanel = new ChartPanel(this);
+        //this.add(new ComponentPanel());
     }
-
 }

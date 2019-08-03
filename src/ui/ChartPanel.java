@@ -7,7 +7,9 @@ import java.util.Random;
 public class ChartPanel extends JPanel {
     MainWindow mainWindow;
 
-    private final int padding = 25;
+    private static final int HEIGHT_PADDING = 25;
+    private static final int RIGHT_PADDING = 25;
+    private static final int LEFT_PADDING = 300;
 
     ChartPanel(MainWindow mainWindow){
         this.mainWindow = mainWindow;
@@ -21,23 +23,35 @@ public class ChartPanel extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2d.setBackground(Color.CYAN);
-        g2d.fillRect(0, 0, getWidth(), getHeight());
+        g2d.fillRect(LEFT_PADDING - 50, 0, getWidth(), getHeight());
 
         g2d.setColor(Color.CYAN);
         g2d.setStroke(new BasicStroke(5.0f));//толщина линий
 
         //рисуем координатные оси с отступом padding
-        g2d.drawLine(padding,padding, padding, getHeight() - padding);
-        g2d.drawLine(padding, getHeight() - padding, getWidth() - padding, getHeight() - padding);
+        g2d.drawLine(LEFT_PADDING, HEIGHT_PADDING, LEFT_PADDING, getHeight() - HEIGHT_PADDING); //вертикально
+        g2d.drawLine(LEFT_PADDING, getHeight() - HEIGHT_PADDING, getWidth() - RIGHT_PADDING, getHeight() - HEIGHT_PADDING); //горизонтально
         Font font = new Font("Monotype Corsiva",Font.BOLD, 18);
         g2d.setFont(font);
-        g2d.drawString("Y", padding*2, padding);
-        g2d.drawString("X", getWidth() - padding, getHeight() - padding*2);
+        g2d.drawString("Y", LEFT_PADDING + 15, HEIGHT_PADDING);
+        g2d.drawString("X", getWidth() - RIGHT_PADDING, getHeight() - HEIGHT_PADDING - 20);
+
+        drawArrow(g);
 
         //сам график
         g2d.setColor(Color.white);
         drawExp(g2d);
 
+    }
+
+    private void drawArrow(Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        //по оси OY
+        g2d.drawLine(LEFT_PADDING - 15, HEIGHT_PADDING + 25, LEFT_PADDING, HEIGHT_PADDING);
+        g2d.drawLine(LEFT_PADDING + 15, HEIGHT_PADDING + 25, LEFT_PADDING, HEIGHT_PADDING);
+        //по оси OX
+        g2d.drawLine(getWidth() - RIGHT_PADDING - 25, getHeight() - HEIGHT_PADDING - 15, getWidth() - RIGHT_PADDING, getHeight() - HEIGHT_PADDING);
+        g2d.drawLine(getWidth() - RIGHT_PADDING - 25, getHeight() - HEIGHT_PADDING + 15, getWidth() - RIGHT_PADDING, getHeight() - HEIGHT_PADDING);
     }
 
     private void drawExp(Graphics2D g2d){
